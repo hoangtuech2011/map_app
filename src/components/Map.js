@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import GoogleMapReact from "google-map-react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import GoogleMap from "google-map-react";
 
 // import { withGoogleMap, withScriptjs, GoogleMap } from "react-google-maps"
 
@@ -40,11 +40,17 @@ const Map = () => {
     zoom: 16,
   };
 
+  const  onChildClick = useCallback((key, childProps) => {
+    console.log("🚀 ~ file: Map.js:44 ~ onChildClick ~ childProps:", childProps)
+    console.log("🚀 ~ file: Map.js:44 ~ onChildClick ~ key:", key)    
+  }, [])
+
+
   return (
     <div style={{ height: "100vh", width: "100%" }}>
 
     
-      <GoogleMapReact
+      <GoogleMap
         bootstrapURLKeys={{ key: key }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
@@ -52,14 +58,14 @@ const Map = () => {
           lat: geoLocation.latitude,
           lng: geoLocation.longitude
         }}
-
+        onChildClick={onChildClick}
       >
         <AnyReactComponent
           lat={DEFAULT_LAT}
           lng={DEFAULT_LNG}
           text="My Marker"
         />
-      </GoogleMapReact>
+      </GoogleMap>
     </div>
   );
 };
