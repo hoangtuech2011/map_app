@@ -180,10 +180,11 @@ const Map = () => {
             <thead>
               <tr
                 style={{
-                  borderBottomWidth: 1,
-                  borderBottomColor: "gray",
+                  borderBottomWidth: 0.5,
+                  borderBottomColor: "#9E9E9E",
                   borderBottomStyle: "solid",
                   textAlign: "left",
+                  borderOpacity: 0.5,
                   height: 40,
                 }}
               >
@@ -200,13 +201,16 @@ const Map = () => {
                 return (
                   <tr
                     style={{
-                      borderBottomWidth: 1,
-                      borderBottomColor: "gray",
+                      borderBottomWidth: 0.5,
+                      borderBottomColor: "#9E9E9E",
                       borderBottomStyle: "solid",
                       textAlign: "left",
+                      borderOpacity: 0.5,
                     }}
                   >
-                    <td style={{paddingBottom: 5, paddingTop: 5}}>{item.storeName}</td>
+                    <td style={{ paddingBottom: 8, paddingTop: 8 }}>
+                      {item.storeName}
+                    </td>
                     <td>{item.description}</td>
                     <td>{item.location}</td>
                     <td>
@@ -241,7 +245,9 @@ const Map = () => {
           display: "inline-block",
         }}
       >
-        <div style={{ height: "5vh", marginTop: 20, marginBottom: 5 }}>
+        <div
+          style={{ height: "5vh", marginTop: 20, marginBottom: 10 }}
+        >
           <SearchComponent placeholder="Search Location" />
         </div>
         <div style={{ height: "90vh" }}>
