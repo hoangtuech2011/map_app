@@ -24,9 +24,9 @@ function App() {
 
   return (
     <div className="App">
-          <header>
+          {/* <header>
             Map Demo
-          </header>
+          </header> */}
           <Map />
     </div>
   );

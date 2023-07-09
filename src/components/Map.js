@@ -5,6 +5,9 @@ import React, {
   useState,
 } from "react";
 import GoogleMap from "google-map-react";
+import EditIcon from "./icons/edit";
+import DeleteIcon from "./icons/delete";
+import SearchIcon from "./icons/search";
 
 // import { withGoogleMap, withScriptjs, GoogleMap } from "react-google-maps"
 
@@ -17,15 +20,90 @@ const DEFAULT_LNG = 106.7126599;
 
 // const proxyServer = 'https://cors-anywhere.herokuapp.com/corsdemo/';
 
+const listRestaurant = [
+  {
+    id: 1,
+    storeName: "Cơm Gà Xối Mỡ/ Fired Chicken Rice",
+    description: "Cơm gà ngon bổ rẻ",
+    location:
+      "69/44 Đ. D2, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh, Vietnam",
+  },
+  {
+    id: 2,
+    storeName: "LALA Sky Lounge",
+    description: "Đồ uống ngon, view đẹp, cuối tuần có nhạc sống",
+    location:
+      "69/2/29 Nguyễn Gia Trí, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh, Vietnam",
+  },
+  {
+    id: 3,
+    storeName: "Nha Nam Books Coffee",
+    description: "View Đẹp, Có sách và vô cùng yên tĩnh",
+    location:
+      "24A Đường D5, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh 700000, Vietnam",
+  },
+  {
+    id: 4,
+    storeName: "Chay Mầm Xanh",
+    description: "Đồ ăn ngon",
+    location:
+      "46 Nguyễn Gia Trí, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh, Vietnam",
+  },
+  {
+    id: 5,
+    storeName: "Hồng Trà Ngô Gia Nguyễn Gia Trí",
+    description: "Rẻ và ngon",
+    location:
+      "1 Nguyễn Gia Trí, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh, Vietnam",
+  },
+];
+
 const AnyReactComponent = ({ text }) => (
   <div style={{ color: "red", fontSize: 20 }}>{text}</div>
 );
+
+export const SearchComponent = ({ placeholder }) => {
+  return (
+    <div
+      style={{
+        float: "left",
+        width: 200,
+        height: 30,
+        borderRadius: 15,
+        backgroundColor: "#fff",
+        flexDirection: "row",
+        borderWidth: 0,
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          paddingTop: 5,
+          paddingLeft: 10,
+        }}
+      >
+        <SearchIcon />
+      </div>
+      <div style={{ display: "inline-block" }}>
+        <input
+          style={{ borderWidth: 0, marginLeft: 15, marginTop: 5 }}
+          type="text"
+          id="name"
+          name="name"
+          placeholder={placeholder}
+        />
+      </div>
+    </div>
+  );
+};
 
 const Map = () => {
   const [geoLocation, setGeoLocation] = useState({
     latitude: "",
     longitude: "",
   });
+
+  const [restaurants, setRestaurant] = useState(listRestaurant);
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(function (position) {
@@ -75,61 +153,117 @@ const Map = () => {
   };
 
   return (
-    <div style={{ width: "100%", borderRadius: 150, borderWidth: 10, borderColor: 'gray', margin: 20}}>
-      <div style={{ width: "50%", display: "inline-block", height: "100vh" }}>
-        <div style={{padding: 20}}>
-            <table border={1} style={{borderCollapse: 'collapse', width: '100%'}}>
-                <thead>
-                    <tr>
-                        <td>
-                            Tên quán ăn
-                        </td>
-                        <td>
-                            Địa điểm
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Quán 1
-                        </td>
-                        <td>
-                            22 Ung văn kiêm, phường 17, quận bình thạnh, thành phố hồ chí minh
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Quán 2
-                        </td>
-                        <td>
-                            128 Nguyễn gia trí, phường 17, quận bình thạnh, thành phố hồ chí minh
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div
+      style={{
+        width: "100%",
+        borderRadius: 20,
+        borderWidth: 10,
+        backgroundColor: "#F7F7F7",
+        margin: 20,
+      }}
+    >
+      <div
+        style={{
+          width: "50%",
+          display: "inline-block",
+          height: "100vh",
+          verticalAlign: "top",
+        }}
+      >
+        <div style={{ padding: 20 }}>
+          <SearchComponent placeholder="Search Store" />
 
+          <table
+            border={0}
+            style={{ borderCollapse: "collapse", width: "100%" }}
+          >
+            <thead>
+              <tr
+                style={{
+                  borderBottomWidth: 1,
+                  borderBottomColor: "gray",
+                  borderBottomStyle: "solid",
+                  textAlign: "left",
+                  height: 40,
+                }}
+              >
+                <td style={{ fontWeight: "bold", marginBottom: 10 }}>
+                  Store Name
+                </td>
+                <td style={{ fontWeight: "bold" }}>Description</td>
+                <td style={{ fontWeight: "bold" }}>Location</td>
+                <td style={{ fontWeight: "bold" }}>Action</td>
+              </tr>
+            </thead>
+            <tbody>
+              {restaurants.map((item) => {
+                return (
+                  <tr
+                    style={{
+                      borderBottomWidth: 1,
+                      borderBottomColor: "gray",
+                      borderBottomStyle: "solid",
+                      textAlign: "left",
+                    }}
+                  >
+                    <td style={{paddingBottom: 5, paddingTop: 5}}>{item.storeName}</td>
+                    <td>{item.description}</td>
+                    <td>{item.location}</td>
+                    <td>
+                      <EditIcon />
+                      <DeleteIcon />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+
+          <div style={{ float: "right", marginTop: 30 }}>
+            <span
+              style={{
+                backgroundColor: "#006FFD",
+                padding: 10,
+                color: "#fff",
+                borderRadius: 10,
+              }}
+              type="button"
+            >
+              Add Store
+            </span>
+          </div>
         </div>
       </div>
-      <div style={{ width: "50%", height: "100vh", display: "inline-block" }}>
-        <GoogleMap
-          bootstrapURLKeys={{ key: key }}
-          defaultCenter={defaultProps.center}
-          defaultZoom={defaultProps.zoom}
-          initialCenter={{
-            lat: geoLocation.latitude,
-            lng: geoLocation.longitude,
-          }}
-          onClick={_onClick}
-          onBoundsChange={_onBoundsChange}
-          onChildMouseEnter={_onChildMouseEnter}
-        >
-          <AnyReactComponent
-            lat={DEFAULT_LAT}
-            lng={DEFAULT_LNG}
-            text="Dirox"
-          />
-        </GoogleMap>
+      <div
+        style={{
+          width: "48%",
+          height: "100vh",
+          display: "inline-block",
+        }}
+      >
+        <div style={{ height: "5vh", marginTop: 20, marginBottom: 5 }}>
+          <SearchComponent placeholder="Search Location" />
+        </div>
+        <div style={{ height: "90vh" }}>
+          <GoogleMap
+            bootstrapURLKeys={{ key: key }}
+            defaultCenter={defaultProps.center}
+            defaultZoom={defaultProps.zoom}
+            initialCenter={{
+              lat: geoLocation.latitude,
+              lng: geoLocation.longitude,
+            }}
+            onClick={_onClick}
+            onBoundsChange={_onBoundsChange}
+            onChildMouseEnter={_onChildMouseEnter}
+          >
+            <AnyReactComponent
+              lat={DEFAULT_LAT}
+              lng={DEFAULT_LNG}
+              text="Dirox"
+            />
+          </GoogleMap>
+        </div>
       </div>
 
       {/* <div style={{ height: "100vh", width: "50%" }}>    
