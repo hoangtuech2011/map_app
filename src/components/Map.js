@@ -11,9 +11,8 @@ import SearchIcon from "./icons/search";
 
 // import { withGoogleMap, withScriptjs, GoogleMap } from "react-google-maps"
 
-// const key = "AIzaSyDO4464aGgMxUrWV5zoXKGtN5-Gni_NI8g";
 
-const key = "AIzaSyBePutf8tgFBptjVly4MA0n-HEwT346rQI";
+const key = "";
 
 const DEFAULT_LAT = 10.8035158;
 const DEFAULT_LNG = 106.7126599;
